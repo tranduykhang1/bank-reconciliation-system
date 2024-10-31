@@ -1,0 +1,51 @@
+@hostname = http://localhost:8080/api/v1
+
+############################################
+### Client login
+############################################
+# @name login
+POST {{hostname}}/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "client@bank.com",
+    "password": "123123123"
+}
+
+#############################################
+### Register for the with the role as a CLIENT
+#############################################
+POST {{hostname}}/auth/register HTTP/1.1
+content-type: application/json
+
+{
+    "email": "john@bank.com",
+    "password": "123123123",
+    "firstName": "John",
+    "lastName": "Doe"
+}
+
+
+##############################################
+### Set access token
+##############################################
+
+@token = {{ login.response.body.accessToken }}
+
+
+##############################################
+### Import file
+##############################################
+POST {{hostname}}/files/import
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="file_name"
+Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+< file_path
+# ex: ./data.xlsx
+
+--boundary--
+

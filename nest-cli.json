@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json.schemastore.org/nest-cli",
+	"collection": "@nestjs/schematics",
+	"sourceRoot": "apps/core-service/src",
+	"compilerOptions": {
+		"deleteOutDir": true,
+		"webpack": true,
+		"tsConfigPath": "apps/core-service/tsconfig.app.json"
+	},
+	"monorepo": true,
+	"root": "apps/core-service",
+	"projects": {
+		"core-service": {
+			"type": "application",
+			"root": "apps/core-service",
+			"entryFile": "main",
+			"sourceRoot": "apps/core-service/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/core-service/tsconfig.app.json"
+			}
+		},
+		"transaction-service": {
+			"type": "application",
+			"root": "apps/transaction-service",
+			"entryFile": "main",
+			"sourceRoot": "apps/transaction-service/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/transaction-service/tsconfig.app.json"
+			}
+		}
+	}
+}
